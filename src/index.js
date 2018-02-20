@@ -1,6 +1,7 @@
 class Sorter {
   constructor() {
     this.arr = [];
+    this.compareFunction = (a,b) => a - b;
   }
 
   add(element) {
@@ -20,17 +21,19 @@ class Sorter {
   }
 
   sort(indices) {
+    indices.sort( (a,b) => a - b);
     let arrStart = this.arr.slice(0,indices[0]),
         arrEnd = this.arr.slice(indices[indices.length - 1] + 1),
         arrSort = []; 
 
     indices.forEach(i => arrSort.push(this.arr[i]));
-    arrSort.sort( (a,b) => a-b);
+    arrSort.sort(this.compareFunction);
+
     this.arr = arrStart.concat(arrSort, arrEnd);
   }
  
   setComparator(compareFunction) {
-    // your implementation
+    this.compareFunction = compareFunction;
   }
 }
 
