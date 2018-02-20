@@ -21,15 +21,22 @@ class Sorter {
   }
 
   sort(indices) {
-    indices.sort( (a,b) => a - b);
-    let arrStart = this.arr.slice(0,indices[0]),
-        arrEnd = this.arr.slice(indices[indices.length - 1] + 1),
-        arrSort = []; 
+    let sortArr = [],
+        count = 0;
 
-    indices.forEach(i => arrSort.push(this.arr[i]));
-    arrSort.sort(this.compareFunction);
+    indices.forEach( ind => {
+      sortArr.push(this.arr[ind]);
+      delete this.arr[ind]
+    })
 
-    this.arr = arrStart.concat(arrSort, arrEnd);
+    sortArr.sort(this.compareFunction);
+
+    for(let i=0; i < this.arr.length; i++) {
+      if(!this.arr[i]) {
+        this.arr[i] = sortArr[count];
+        count++;
+      }
+    }
   }
  
   setComparator(compareFunction) {
