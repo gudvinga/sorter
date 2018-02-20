@@ -20,11 +20,13 @@ class Sorter {
   }
 
   sort(indices) {
-    let res = [];
-    indices.forEach( i => res.push(this.arr[i]));
-    res.sort( (a,b) => a-b);
-    this.arr = [...res];
-    return this.arr;
+    let arrStart = this.arr.slice(0,indices[0]),
+        arrEnd = this.arr.slice(indices[indices.length - 1] + 1),
+        arrSort = []; 
+
+    indices.forEach(i => arrSort.push(this.arr[i]));
+    arrSort.sort( (a,b) => a-b);
+    this.arr = arrStart.concat(arrSort, arrEnd);
   }
  
   setComparator(compareFunction) {
